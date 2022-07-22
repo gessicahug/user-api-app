@@ -1,6 +1,7 @@
 class V1::UsersController < ApplicationController
   skip_before_action :authenticate_request, only: %i[index show create]
   before_action :set_user, only: %i[show update destroy]
+
   def index
     @users = User::GetAllUsers.call
     render json: @users, status: :ok
@@ -22,10 +23,10 @@ class V1::UsersController < ApplicationController
   end
 
   def update
-    if User::UpdateUser.call(params, @user)
+    if User::UpdateUser.call(update_params, @user)
       render json: @user, status: :ok
     else
-      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: 500 }, status: :unprocessable_entity
     end
   end
 
@@ -44,10 +45,10 @@ class V1::UsersController < ApplicationController
   end
 
   def update_params
-    params.permit(:name, :email)
+    params.permit(:name)
   end
 
   def set_user
-    @user = User::SetUser.call
+    @user = User::SetUser.call(params)
   end
 end

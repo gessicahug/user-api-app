@@ -10,7 +10,7 @@ class Password::UpdatePassword < ApplicationService
   private
 
   def update_password
-    @user = User.find(@params[:user_id])
+    @user = User.find(@params['user_id'])
     @user.update(
       password: @params['password']
     )

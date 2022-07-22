@@ -11,9 +11,6 @@ class User::UpdateUser < ApplicationService
   private
 
   def update_user
-    @user = User.update(
-      name: @params['name'],
-      email: @params['email']
-    )
+    @user.update_attribute(:name, @params['name'])
   end
 end

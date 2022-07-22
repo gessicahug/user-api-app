@@ -4,12 +4,12 @@ class User::SetUser < ApplicationService
   end
 
   def call
-    set_users
+    set_user(@params)
   end
 
   private
 
-  def set_user
+  def set_user(params)
     @user = User.find(params[:id])
   end
 end
