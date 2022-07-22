@@ -43,9 +43,30 @@ You can call HTTP requests in the API to serve JSON resources to an API client o
 <p>The routes of update and delete for both user and password are protected with JWT Tokens. The HTTP request has to have a header with the "auth_token" in it for checking user permission.</p>
 
 <br><br>
+
 You can clone this app:
-	
+
+
 ```
 git clone git@github.com:gessicahug/user-api-app.git
+```
+```
+cd user-api-app
+```
+```
+bundle install
+```
+```
+rails db:create db:migrate
+```
+```
+rails server
+```
+
+How to test the app: 
+
+
+```
+rails test
 ```
 
