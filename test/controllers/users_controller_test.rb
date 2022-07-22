@@ -20,7 +20,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update user' do
-    patch v1_user_path(@user), params: { email: 'gessica2@gmail.com' }
+    put v1_user_path(@user), params: { email: 'gessica2@gmail.com' }
     assert_response(:success)
   end
 
