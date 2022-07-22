@@ -6,7 +6,7 @@ class PasswordsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update user' do
-    patch v1_user_password_url(@user), params: { new_password: '321321' }
+    patch v1_user_password_path(@user.id, id:1), params: { new_password: '321321' }
     assert_response(:success)
   end
 end
