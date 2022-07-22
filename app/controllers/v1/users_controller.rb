@@ -2,7 +2,7 @@ class V1::UsersController < ApplicationController
   skip_before_action :authenticate_request, only: %i[index show create]
   before_action :set_user, only: %i[show update destroy]
   def index
-    @users = User.all
+    @users = User::GetAllUsers.call
     render json: @users, status: :ok
   end
 
@@ -48,6 +48,6 @@ class V1::UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User::SetUser.call
   end
 end

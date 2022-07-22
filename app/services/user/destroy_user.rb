@@ -1,17 +1,15 @@
-module User
-  class DestroyUser < ApplicationService
-    def initialize(user)
-      @user = user
-    end
+class User::DestroyUser < ApplicationService
+  def initialize(user)
+    @user = user
+  end
 
-    def call
-      destroy_user
-    end
+  def call
+    destroy_user
+  end
 
-    private
+  private
 
-    def destroy_user
-      @user.destroy
-    end
+  def destroy_user
+    @user.destroy
   end
 end
