@@ -1,7 +1,5 @@
-class UsersController < ApplicationController
-  skip_before_action :authenticate_request, only: [:create]
-  before_action :set_user, only: %i[show destroy]
-
+class V1::UsersController < ApplicationController
+  before_action :set_user, only: %i[show update destroy]
   def index
     @users = User.all
     render json: @users, status: :ok
@@ -12,8 +10,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
+    @user = UserCreator.new(user_params).create_user
+    if @user
+      response.set_header('auth_token', @user.token)
       render json: @user, status: :created
     else
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
@@ -21,17 +20,25 @@ class UsersController < ApplicationController
   end
 
   def update
-    render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity unless @user.update(user_params)
+    unless UserUpdater.new(update_params, @user).update_user
+      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def destroy
-    @user.destroy
+    unless UserDestroyer.new(@user).destroy_user
+      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   private
 
   def user_params
     params.permit(:name, :email, :password)
+  end
+
+  def update_params
+    params.permit(:name, :email)
   end
 
   def set_user
