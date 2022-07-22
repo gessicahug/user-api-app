@@ -1,4 +1,8 @@
-# README
+# API Documentation
+
+<p align="center">
+	<img src="public/RESTAPI-Banner-1.jpg">  
+</p>
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
