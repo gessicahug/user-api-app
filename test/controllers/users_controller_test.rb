@@ -20,13 +20,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update user' do
-    put v1_user_path(@user), params: { email: 'gessica2@gmail.com' }
+    put v1_user_path(@user), params: { email: 'gessica2@gmail.com' }, headers: { 'auth-token': @user.token }
     assert_response(:success)
   end
 
   test 'should destroy user' do
     assert_difference('User.count', -1) do
-      delete v1_user_path(@user)
+      delete v1_user_path(@user), headers: { 'auth-token': @user.token }
     end
   end
 end
