@@ -1,8 +1,13 @@
-# API Documentation
+# User API Documentation
 
 <p align="center">
 	<img src="public/RESTAPI-Banner-1.jpg">  
 </p>
+
+This application uses the next gems:
+* [Bcrypt](https://rubygems.org/gems/bcrypt)
+* [JWT](https://rubygems.org/gems/jwt)
+
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
