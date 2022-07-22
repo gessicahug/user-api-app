@@ -10,7 +10,8 @@ class V1::UsersController < ApplicationController
   end
 
   def create
-    @user = UserCreator.new(user_params).create_user
+    @user = User::CreateUser.call(user_params)
+
     if @user
       response.set_header('auth_token', @user.token)
       render json: @user, status: :created
@@ -20,13 +21,17 @@ class V1::UsersController < ApplicationController
   end
 
   def update
-    unless UserUpdater.new(update_params, @user).update_user
+    if User::UpdateUser.call(params, @user)
+      render json: @user, status: :ok
+    else
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    unless UserDestroyer.new(@user).destroy_user
+    if User::DestroyUser.call(@user)
+      render json: { status: :ok }
+    else
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
   end
